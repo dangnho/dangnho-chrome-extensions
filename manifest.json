@@ -1,0 +1,36 @@
+{
+  "name": "Đáng Nhớ Management Tool",
+  "author": "Nguyen Pham",
+  "version": "1.0",
+  "description": "The Đáng Nhớ Management extension for your browser is easy to use to install. This extension made for the dangnho.com.",
+  "background": {
+    "scripts": ["global.min.js", "background.min.js"]
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["app/css/app.min.css"],
+      "js": [
+        "app/js/jquery.min.js",
+        "app/js/modernizr.min.js",
+        "app/js/draw.min.js",
+        "app/js/ruler.min.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "app/img/icon.png",
+    "48": "app/img/icon.png",
+    "128": "app/img/icon.png"
+  },
+  "browser_action": {
+    "default_title": "Đáng Nhớ Management Tool", 
+    "default_popup": "app/index.html",
+    "default_icon": "app/img/icon.png"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "manifest_version": 2
+}
