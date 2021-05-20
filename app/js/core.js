@@ -103,7 +103,7 @@ if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HO
                 jQuery('[data-name="nguon_bai_viet"] input').val(mm)
                 jQuery('#title-prompt-text').remove()
                 jQuery('body').append('<textarea id="clone" style="display:none">' + event.data + '</textarea>')
-                var nnnnb = '<a class="fetchpost" href="javascript:void(0);" onclick="tinyMCE.get(\'content\').setContent(jQuery(\'#clone\').val());jQuery(this).hide()" style="background: #ff0; color: #000; display: inline-block; padding: 5px 15px; font-size: 20px; position: fixed; top: 15px; right: 15px; z-index: 99999999; border-radius: 3px; font-weight: bold;" >Gán Content</a>'
+                var nnnnb = '<a class="fetchpost" href="javascript:void(0);" onclick="tinyMCE.get(\'content\').setContent(jQuery(\'#clone\').val());jQuery(this).hide()" style="background: #ff0; color: #000; display: inline-block; padding: 1.5rem 4rem; text-transform: uppercase; font-size: 1.2rem; position: fixed; top: 0; right: 0; z-index: 99999999; border-radius: 0; font-weight: bold; text-decoration: none; box-shadow: 0 0 0 3px #f00 inset;" >Gán Content</a>'
                 jQuery('body').append(nnnnb)
             }
         });
