@@ -15,7 +15,8 @@
       "css": ["app/css/app.min.css"],
       "js": [
         "app/js/jquery.min.js",
-        "app/js/modernizr.min.js"
+        "app/js/core.min.js",
+        "app/js/sites.min.js"
       ]
     }
   ],

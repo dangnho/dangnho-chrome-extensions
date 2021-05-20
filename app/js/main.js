@@ -1,3 +1,7 @@
+$('#runSEO').on('click', function () {
+    chrome.runtime.sendMessage({ msg: "__runSEO" });
+    window.close();
+})
 $('#goToaSoan').on('click', function () {
     chrome.runtime.sendMessage({ msg: "__goToaSoan" });
     window.close();

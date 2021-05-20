@@ -12,6 +12,9 @@ chrome.browserAction.onClicked.addListener(function (request) {
 chrome.extension.onConnect.addListener(function (request) {
 });
 chrome.runtime.onMessage.addListener(function (request) {
+    if (request.msg == "__runSEO") {
+        DANGNHO_APP.seo()
+    }
     if (request.msg == "__goToaSoan") {
         DANGNHO_APP.toasoan()
     }
