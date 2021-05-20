@@ -15,9 +15,7 @@
       "css": ["app/css/app.min.css"],
       "js": [
         "app/js/jquery.min.js",
-        "app/js/modernizr.min.js",
-        "app/js/draw.min.js",
-        "app/js/ruler.min.js"
+        "app/js/modernizr.min.js"
       ]
     }
   ],

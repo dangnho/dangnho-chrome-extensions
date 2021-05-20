@@ -1,13 +1,13 @@
-$('#createGrid').on('click', function () {
-    chrome.runtime.sendMessage({ msg: "__build_Grid" });
+$('#goToaSoan').on('click', function () {
+    chrome.runtime.sendMessage({ msg: "__goToaSoan" });
     window.close();
 })
-$('#createRuler').on('click', function () {
-    chrome.runtime.sendMessage({ msg: "__build_Ruler" });
+$('#goDangNho').on('click', function () {
+    chrome.runtime.sendMessage({ msg: "__goDangNho" });
     window.close();
 })
-$('#createMeasure').on('click', function () {
-    chrome.runtime.sendMessage({ msg: "__build_Measure" });
+$('#goCaFe').on('click', function () {
+    chrome.runtime.sendMessage({ msg: "__goCaFe" });
     window.close();
 })
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })
