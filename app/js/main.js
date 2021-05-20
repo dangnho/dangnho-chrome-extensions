@@ -14,4 +14,8 @@ $('#goCaFe').on('click', function () {
     chrome.runtime.sendMessage({ msg: "__goCaFe" });
     window.close();
 })
+$('#goHelp').on('click', function () {
+    chrome.runtime.sendMessage({ msg: "__goHelp" });
+    window.close();
+})
 window.addEventListener("contextmenu", function(e) { e.preventDefault(); })

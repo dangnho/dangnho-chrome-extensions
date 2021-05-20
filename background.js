@@ -24,4 +24,7 @@ chrome.runtime.onMessage.addListener(function (request) {
     if (request.msg == "__goCaFe") {
         DANGNHO_APP.cafe()
     }
+    if (request.msg == "__goHelp") {
+        DANGNHO_APP.help()
+    }
 });

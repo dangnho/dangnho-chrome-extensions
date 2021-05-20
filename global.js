@@ -99,6 +99,11 @@ var DANGNHO_APP = {
         window.open('https://dangnho.com', '_blank');
         `});
     },
+    help: function () { 
+        chrome.tabs.executeScript(null, {code: `
+        window.open('https://toasoandangnho.wordpress.com', '_blank');
+        `});
+    },
     cafe: function () { 
         chrome.tabs.executeScript(null, {code: `
         window.open('https://caphethubay.net', '_blank');
