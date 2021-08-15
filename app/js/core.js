@@ -12,6 +12,18 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
+function extractHostname(url) {
+    var hostname;
+    if (url.indexOf("//") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+    hostname = hostname.split(':')[0];
+    hostname = hostname.split('?')[0];
+    return hostname;
+}
 function domain_from_url(url) {
     var result
     var match
@@ -23,6 +35,7 @@ function domain_from_url(url) {
     }
     return result
 }
+
 var APP_HOST = window.location.host;
 var APP_PATH = window.location.pathname;
 var myWin1 = null;
@@ -52,62 +65,51 @@ function fetchDangNhoBook(url, title) {
     var dangnho_btn = '<a class="fetchpost" href="https://tapchidangnho.com/?key=' + url + '&t=' + title + '&book=true" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; position: fixed; top: 15px; right: 15px; z-index: 10000; border-radius: 3px; font-weight: bold;">Fetch bài này</a>';
     jQuery('body').append(dangnho_btn)
 }
+function copyToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("Copy");
+    document.body.removeChild(textArea);
+}
 if (APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || (APP_HOST === 'help.dangnho.com' && APP_PATH === '/fetch/')) {
-    (function () {
-        var helperFrame = document.createElement('iframe');
-        helperFrame.src = 'https://tapchidangnho.com/helper.html';
-        helperFrame.id = 'helperFrame';
-        helperFrame.style = 'display:none;';
-        var body = document.getElementsByTagName('body')[0];
-        body.appendChild(helperFrame);
-    })();
+    if (document.body.contains(document.getElementById('copyall'))) {
+        var copyall = jQuery('#copyall').html();
+        copyToClipboard(copyall);
+    }
     if (jQuery('#copyall') && jQuery('#copyall').length > 0) {
-        var fromURL = domain_from_url(getUrlParameter('key')).split(".")[0];
+        var fromURL = extractHostname(getUrlParameter('key')).split(".")[0];
+        var fromURLSource = getUrlParameter('key');
         var titleDN = jQuery('h1').text().trim()
         var contentDN = jQuery('#copyall').html()
-        var dangnho_btn_sync = '<div style="position: fixed; top: 0; right: 0; z-index: 500; background: #002b1a; width: 100%; padding: 10px 40px 10px 15px; text-align: right; text-decoration: none;"><a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_faq&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Inforgaphic</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_viral&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Video</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=knowledgebase&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Kiến thức</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Đăng bài</a></div>';
+        var dangnho_btn_sync = '<div style="position: fixed; top: 0; right: 0; z-index: 500; background: #002b1a; width: 100%; padding: 10px 40px 10px 15px; text-align: right; text-decoration: none;"><a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_faq&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Inforgaphic</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_viral&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Video</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=knowledgebase&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Kiến thức</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Đăng bài</a></div>';
         if (getUrlParameter('book') && getUrlParameter('book') === 'true') {
             dangnho_btn_sync = '<a class="fetchpost" href="https://lib.dangnho.com/wp-admin/post-new.php?post_type=sfwd-lessons&t=' + encodeURIComponent(titleDN) + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; position: fixed; top: 15px; right: 15px; z-index: 10000; border-radius: 3px; font-weight: bold;text-decoration: none;">Đăng qua thư viện</a>';
         }
         jQuery('body').css({ 'margin-top': '55px' }).append(dangnho_btn_sync).on('click', function () {
-            localStorage.setItem('__dangnho_title', contentDN)
         })
     }
     window.onload = () => {
 
-        localStorage.setItem('__dangnho_title', contentDN)
-
     }
 }
 if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com') {
-    jQuery('#seositedangnho').remove();
-    (function () {
-        var helperFrame = document.createElement('iframe');
-        helperFrame.src = 'https://tapchidangnho.com/helper.html';
-        helperFrame.id = 'helperFrame';
-        helperFrame.style = 'display:none;';
-        var body = document.getElementsByTagName('body')[0];
-        body.appendChild(helperFrame);
-    })();
-    window.onload = () => {
-
-        let helperFrameWindow = document.getElementById('helperFrame').contentWindow;
-        let __dangnho_title = () => {
-            helperFrameWindow.postMessage('__dangnho_title', '*');
+    jQuery( document ).ready(function() {
+        var tt = decodeURIComponent(getUrlParameter('t')).replace(/\+/g, ' ').replace(/\'\"/g, '"');
+        var mm = getUrlParameter('fromsiteURL')
+        var oo = getUrlParameter('fromURL')
+        var fullval = document.execCommand("Paste");
+        jQuery('body').append('<textarea id="clone" style="display:none"></textarea>')
+        jQuery('#seositedangnho').remove();
+        if (getUrlParameter('t') && getUrlParameter('t').length > 0) {
+            jQuery('#title').val(tt).trigger('click').blur()
+            jQuery('[data-name="nguon_bai_viet"] input').val(mm)
+            jQuery('[data-name="url_cua_bai_viet"] input').val(oo)
+            jQuery('#title-prompt-text').remove()
+            jQuery('#clone').val(fullval)
+            var nnnnb = '<a class="fetchpost button button-primary button-large" href="javascript:void(0);" onclick="tinyMCE.get(\'content\').setContent(jQuery(\'#clone\').val());jQuery(this).hide()" style="width: 100%;text-align: center;display: block;margin-bottom: 1rem;text-transform: uppercase;">Gán nội dung</a>'
+            jQuery('#minor-publishing-actions').prepend(nnnnb)
         }
-        window.addEventListener('message', (event) => {
-            var tt = decodeURIComponent(getUrlParameter('t')).replace(/\+/g, ' ').replace(/\'\"/g, '"');
-            var mm = getUrlParameter('fromsiteURL')
-            if (getUrlParameter('t') && getUrlParameter('t').length > 0) {
-                jQuery('#title').val(tt).trigger('click').blur()
-                jQuery('[data-name="nguon_bai_viet"] input').val(mm)
-                jQuery('#title-prompt-text').remove()
-                jQuery('body').append('<textarea id="clone" style="display:none">' + event.data + '</textarea>')
-                var nnnnb = '<a class="fetchpost" href="javascript:void(0);" onclick="tinyMCE.get(\'content\').setContent(jQuery(\'#clone\').val());jQuery(this).hide()" style="background: #ff0; color: #000; display: inline-block; padding: 1.5rem 4rem; text-transform: uppercase; font-size: 1.2rem; position: fixed; top: 0; right: 0; z-index: 99999999; border-radius: 0; font-weight: bold; text-decoration: none; box-shadow: 0 0 0 3px #f00 inset;" >Gán Content</a>'
-                jQuery('body').append(nnnnb)
-            }
-        });
-
-        __dangnho_title();
-    }
+    })
 }
