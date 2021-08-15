@@ -35,7 +35,6 @@ function domain_from_url(url) {
     }
     return result
 }
-
 var APP_HOST = window.location.host;
 var APP_PATH = window.location.pathname;
 var myWin1 = null;
@@ -94,21 +93,32 @@ if (APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || (APP_HOST ==
 
     }
 }
+function pasteDangNho() {
+    var textArea = document.createElement("textarea");
+    textArea.style.position = 'absolute';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    document.execCommand("paste");
+    jQuery('#dangnhoclone').val($(textArea).val())
+    document.body.removeChild(textArea);
+}
+
+
 if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com') {
-    jQuery( document ).ready(function() {
+    jQuery(document).ready(function () {
         var tt = decodeURIComponent(getUrlParameter('t')).replace(/\+/g, ' ').replace(/\'\"/g, '"');
         var mm = getUrlParameter('fromsiteURL')
         var oo = getUrlParameter('fromURL')
-        var fullval = document.execCommand("Paste");
-        jQuery('body').append('<textarea id="clone" style="display:none"></textarea>')
+        var nnnnb = '<a class="fetchpost button button-primary button-large" href="javascript:void(0);" onclick="tinyMCE.get(\'content\').setContent(jQuery(\'#dangnhoclone\').val());jQuery(this).hide()" style="width: 100%;text-align: center;display: block;margin-bottom: 1rem;text-transform: uppercase;">Gán nội dung</a>'
+        jQuery('body').append('<textarea id="dangnhoclone" rows="10" class="form-control" style="display:none"></textarea>')
         jQuery('#seositedangnho').remove();
         if (getUrlParameter('t') && getUrlParameter('t').length > 0) {
             jQuery('#title').val(tt).trigger('click').blur()
             jQuery('[data-name="nguon_bai_viet"] input').val(mm)
             jQuery('[data-name="url_cua_bai_viet"] input').val(oo)
             jQuery('#title-prompt-text').remove()
-            jQuery('#clone').val(fullval)
-            var nnnnb = '<a class="fetchpost button button-primary button-large" href="javascript:void(0);" onclick="tinyMCE.get(\'content\').setContent(jQuery(\'#clone\').val());jQuery(this).hide()" style="width: 100%;text-align: center;display: block;margin-bottom: 1rem;text-transform: uppercase;">Gán nội dung</a>'
+            pasteDangNho()
             jQuery('#minor-publishing-actions').prepend(nnnnb)
         }
     })
