@@ -73,6 +73,7 @@ function copyToClipboard(text) {
     textArea.select();
     document.execCommand("Copy");
     document.body.removeChild(textArea);
+    jQuery(window).scrollTop(0);
 }
 if (APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || (APP_HOST === 'help.dangnho.com' && APP_PATH === '/fetch/')) {
     if (document.body.contains(document.getElementById('copyall'))) {
@@ -104,6 +105,8 @@ function pasteDangNho() {
     document.execCommand("paste");
     jQuery('#dangnhoclone').val($(textArea).val())
     document.body.removeChild(textArea);
+    jQuery(window).scrollTop(0);
+
 }
 
 if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com' || APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com') {
