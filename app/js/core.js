@@ -12,6 +12,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
+
 function extractHostname(url) {
     var hostname;
     if (url.indexOf("//") > -1) {
@@ -24,6 +25,7 @@ function extractHostname(url) {
     hostname = hostname.split('?')[0];
     return hostname;
 }
+
 function domain_from_url(url) {
     var result
     var match
@@ -78,7 +80,7 @@ if (APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || (APP_HOST ==
         copyToClipboard(copyall);
     }
     if (jQuery('#copyall') && jQuery('#copyall').length > 0) {
-        var fromURL = extractHostname(getUrlParameter('key')).split(".")[0];
+        var fromURL = extractHostname(getUrlParameter('key'));
         var fromURLSource = encodeURIComponent(getUrlParameter('key'));
         var titleDN = jQuery('h1').text().trim()
         var contentDN = jQuery('#copyall').html()
@@ -103,7 +105,6 @@ function pasteDangNho() {
     jQuery('#dangnhoclone').val($(textArea).val())
     document.body.removeChild(textArea);
 }
-
 
 if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com' || APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com') {
     jQuery(document).ready(function () {
