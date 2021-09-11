@@ -126,7 +126,12 @@ if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HO
 }
 if ((APP_HOST === 'dangnho.com' && (APP_PATH === '/admin/post-new.php' || APP_PATH === '/admin/post.php'))) {
     jQuery(document).ready(function () {
-        var addstyle = '<style>#seriesdiv .inside #serieschecklist { display: flex; flex-wrap: wrap; } #seriesdiv .inside #serieschecklist li { display: inline-flex; flex: 0 0 12.5%; max-width: 12.5%; white-space: nowrap; }</style>'
+        if(!jQuery('body').hasClass('folded')){
+            jQuery('#collapse-button').trigger('click')
+        }
+        var revertbtn = '<a class="button button-primary button-large" href="javascript:void(0);" onclick="jQuery(\'#dangnhostyles\').remove();jQuery(this).remove();" style="width: 100%;text-align: center;display: block;margin-top: 1rem;text-transform: uppercase;">REVERT</a>'
+        var addstyle = '<style id="dangnhostyles">#seriesdiv .inside #serieschecklist { display: flex; flex-wrap: wrap; } #seriesdiv .inside #serieschecklist li { display: inline-flex; flex: 0 0 12.5%; max-width: 12.5%; white-space: nowrap; }#post_tagchecklist{ display: flex; flex-wrap: wrap; }#post_tagchecklist li{ flex: 0 0 50%; max-width: 50%; white-space: nowrap;}#misc-publishing-actions {display:none}#minor-publishing-actions {padding-bottom: 10px;}#poststuff #post-body.columns-2 { margin-right: 600px; } #post-body.columns-2 #postbox-container-1 { margin-right: -600px; width: 580px !important; }#major-publishing-actions { display: flex; justify-content: space-between; }#poststuff #postbox-container-1 #side-sortables { width: 580px !important; display: flex; flex-wrap: wrap; } #poststuff #postbox-container-1 #side-sortables .postbox { flex: 0 0 calc(50% - 10px); max-width: calc(50% - 10px);box-sizing: border-box; } #poststuff #postbox-container-1 #side-sortables .postbox:nth-child(even) { margin-left: 20px; }#publishing-action {margin-left: auto;}</style>'
+        jQuery('#minor-publishing-actions').append(revertbtn)
         jQuery('head').append(addstyle)
     })
 }
