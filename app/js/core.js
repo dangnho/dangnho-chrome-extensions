@@ -124,3 +124,9 @@ if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HO
         }
     })
 }
+if ((APP_HOST === 'dangnho.com' && (APP_PATH === '/admin/post-new.php' || APP_PATH === '/admin/post.php'))) {
+    jQuery(document).ready(function () {
+        var addstyle = '<style>#seriesdiv .inside #serieschecklist { display: flex; flex-wrap: wrap; } #seriesdiv .inside #serieschecklist li { display: inline-flex; flex: 0 0 12.5%; max-width: 12.5%; white-space: nowrap; }</style>'
+        jQuery('head').append(addstyle)
+    })
+}
