@@ -125,7 +125,7 @@ function pasteDangNho() {
 
 }
 
-if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com' || APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || APP_HOST === 'backup.tapchidangnho.com') {
+if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || (APP_HOST === 'saigonxua.net' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com' || APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || APP_HOST === 'backup.tapchidangnho.com') {
     jQuery(document).ready(function () {
         var tt = decodeURIComponent(getUrlParameter('t')).replace(/\+/g, ' ').replace(/\'\"/g, '"');
         var mm = getUrlParameter('fromsiteURL')
@@ -143,7 +143,7 @@ if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HO
         }
     })
 }
-if ((APP_HOST === 'dangnho.com' && (APP_PATH === '/admin/post-new.php' || APP_PATH === '/admin/post.php'))) {
+if (((APP_HOST === 'dangnho.com' || APP_HOST === 'saigonxua.net') && (APP_PATH === '/admin/post-new.php' || APP_PATH === '/admin/post.php'))) {
     jQuery(document).ready(function () {
         if(!jQuery('body').hasClass('folded')){
             jQuery('#collapse-button').trigger('click')
