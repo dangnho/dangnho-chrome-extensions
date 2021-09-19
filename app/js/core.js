@@ -75,7 +75,7 @@ function copyToClipboard(text) {
     document.body.removeChild(textArea);
     jQuery(window).scrollTop(0);
 }
-if (APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || (APP_HOST === 'help.dangnho.com' && APP_PATH === '/fetch/')) {
+if (APP_HOST === 'check.com' || APP_HOST === 'backup.tapchidangnho.com' || APP_HOST === 'tapchidangnho.com' || (APP_HOST === 'help.dangnho.com' && APP_PATH === '/fetch/')) {
     if (document.body.contains(document.getElementById('copyall'))) {
         var copyall = jQuery('#copyall').html();
         copyToClipboard(copyall);
@@ -85,13 +85,29 @@ if (APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || (APP_HOST ==
         var fromURLSource = encodeURIComponent(getUrlParameter('key'));
         var titleDN = jQuery('h1').text().trim()
         var contentDN = jQuery('#copyall').html()
-        var dangnho_btn_sync = '<div style="position: fixed; top: 0; right: 0; z-index: 500; background: #002b1a; width: 100%; padding: 10px 40px 10px 15px; text-align: right; text-decoration: none;"><a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_faq&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Inforgaphic</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_viral&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Video</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=knowledgebase&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Kiến thức</a> - <a class="fetchpost" href="https://dangnho.com/admin/post-new.php?t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Đăng bài</a></div>';
+        var dangnho_btn_sync = '<div style="position: fixed; top: 0; right: 0; z-index: 500; background: #002b1a; width: 100%; padding: 10px 40px 10px 15px; text-align: right; text-decoration: none;justify-content: flex-end; align-items: center;"><select class="mr-3" id="togpost"><option value="1">dangnho.com</option> <option value="2">saigonxua.net</option></select><a class="posttopage fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_faq&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Inforgaphic</a> - <a class="posttopage fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=avada_viral&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Video</a> - <a class="posttopage fetchpost" href="https://dangnho.com/admin/post-new.php?post_type=knowledgebase&t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Kiến thức</a> - <a class="posttopage fetchpost" href="https://dangnho.com/admin/post-new.php?t=' + encodeURIComponent(titleDN) + '&fromsiteURL=' + fromURL + '&fromURL=' + fromURLSource + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; border-radius: 3px; font-weight: bold;text-decoration: none;">Đăng bài</a></div>';
         if (getUrlParameter('book') && getUrlParameter('book') === 'true') {
             dangnho_btn_sync = '<a class="fetchpost" href="https://lib.dangnho.com/wp-admin/post-new.php?post_type=sfwd-lessons&t=' + encodeURIComponent(titleDN) + '" style="background: #ff0; color: #000; display: inline-block; padding: 3px 12px; font-size: 15px; position: fixed; top: 15px; right: 15px; z-index: 10000; border-radius: 3px; font-weight: bold;text-decoration: none;">Đăng qua thư viện</a>';
         }
         jQuery('body').css({ 'margin-top': '55px' }).append(dangnho_btn_sync).on('click', function () {
         })
     }
+
+    $('#togpost').on('change', function() {
+        var valueSelected = this.value;
+		if(valueSelected == 2) {
+            $('.posttopage').each(function() {
+                var me = $(this).attr('href');
+                $(this).attr('href', me.replace('dangnho.com', 'saigonxua.net'));
+            })
+		} else {
+            $('.posttopage').each(function() {
+                var me = $(this).attr('href');
+                $(this).attr('href', me.replace('saigonxua.net', 'dangnho.com'));
+            })
+        }
+    });
+
     window.onload = () => {
 
     }
@@ -109,7 +125,7 @@ function pasteDangNho() {
 
 }
 
-if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com' || APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com') {
+if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com' || APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || APP_HOST === 'backup.tapchidangnho.com') {
     jQuery(document).ready(function () {
         var tt = decodeURIComponent(getUrlParameter('t')).replace(/\+/g, ' ').replace(/\'\"/g, '"');
         var mm = getUrlParameter('fromsiteURL')
