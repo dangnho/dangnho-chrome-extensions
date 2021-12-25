@@ -12,6 +12,20 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
+var getUrlParameterNoDot = function getUrlParameterNoDot(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1].split('.')[0]);
+        }
+    }
+};
 
 function extractHostname(url) {
     var hostname;
@@ -146,14 +160,16 @@ function pasteDangNho() {
 if ((APP_HOST === 'dangnho.com' && APP_PATH === '/admin/post-new.php') || (APP_HOST === 'saigonxua.net' && APP_PATH === '/admin/post-new.php') || (APP_HOST === 'vietcophong.com' && APP_PATH === '/admin/post-new.php') || (APP_HOST === 'giaidieumotthoi.com' && APP_PATH === '/admin/post-new.php') || APP_HOST === 'lib.dangnho.com' || APP_HOST === 'check.com' || APP_HOST === 'tapchidangnho.com' || APP_HOST === 'backup.tapchidangnho.com') {
     jQuery(document).ready(function () {
         var tt = decodeURIComponent(getUrlParameter('t')).replace(/\+/g, ' ').replace(/\'\"/g, '"');
-        var mm = getUrlParameter('fromsiteURL')
+        var mm = getUrlParameterNoDot('fromsiteURL')
         var oo = getUrlParameter('fromURL')
+        var au = getUrlParameter('fromAuthor')
         var nnnnb = '<a class="fetchpost button button-primary button-large" href="javascript:void(0);" onclick="tinyMCE.get(\'content\').setContent(jQuery(\'#dangnhoclone\').val());" style="width: 100%;text-align: center;display: block;margin-bottom: 1rem;text-transform: uppercase;">Gán nội dung</a>'
         jQuery('body').append('<textarea id="dangnhoclone" rows="10" class="form-control" style="display:none"></textarea>')
         jQuery('#seositedangnho').remove();
         if (getUrlParameter('t') && getUrlParameter('t').length > 0) {
             jQuery('#title').val(tt).trigger('click').blur()
-            jQuery('[data-name="nguon_bai_viet"] input').val(mm)
+            jQuery('[data-name="nguon_bai_viet"] input').val('Theo ' + mm)
+            jQuery('[data-name="ten_tac_gia"] input').val(au)
             jQuery('[data-name="url_cua_bai_viet"] input').val(oo)
             jQuery('#title-prompt-text').remove()
             pasteDangNho()
